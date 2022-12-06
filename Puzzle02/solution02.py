@@ -3,8 +3,11 @@ print('Starting Solution 2...')
 #Read input file as lines
 with open('input.txt') as inputFile:
     lines = inputFile.readlines()
-
+    
+# Initialize a variable to store the final score
 score = 0
+
+# Define a dictionary that maps tuples of the form (A,X) to a score value
 scoreDict = {
     'A X': 4, #Rock Rock
     'A Y': 8, #Rock Paper
@@ -16,6 +19,8 @@ scoreDict = {
     'C Y': 2, #S P 
     'C Z': 6 #S S 
     }
+    
+# Define another dictionary that maps tuples of the form (A,X) to a different tuple (This is for part two)
 scoreDict2 = {
     'A X': 'A Z', #Rock lose
     'A Y': 'A X', #Rock draw
@@ -29,5 +34,9 @@ scoreDict2 = {
     }
 
 for line in lines:
+    # Use the value in scoreDict2 to look up a value in scoreDict,
+    # then add that value to the final score
     score = score + scoreDict[scoreDict2[line.replace('\n','')]]
+    
+# Print final score on screen
 print('Final score is: ' + str(score))

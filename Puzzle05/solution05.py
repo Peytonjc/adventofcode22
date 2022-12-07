@@ -4,14 +4,17 @@ print('Starting Solution 5...')
 with open('input.txt') as inputFile:
     lines = inputFile.readlines()
 
+# Initialize crateLists as a list of lists for the stacks of crates, some flags for checking if
+# it is the first line, and an index
 crateLists = []
-newCrateLists = []
 first = True
 firstMove = True
 index = 0
+
+# Start reading the file
 for line in lines:
     if '[' in line:
-        # Looking at the crate map.
+        # Looking at the crate map. Build the list of lists to hold each of the stacks.
         line = line.replace('    ', '[-] ' )
         line = line.replace('[-]  ', ' [-] ')
         line = line.replace('][-] ', '] [-]')
@@ -29,7 +32,7 @@ for line in lines:
                     crateLists[index].append(val.replace('[', '').replace(']', ''))
             index = index + 1
     elif 'move' in line:
-        # This is a move command
+        # This is a move command. Start operating on the crateLists based on the steps given.
         if firstMove:
             index = 0
             for list in crateLists:
@@ -44,7 +47,7 @@ for line in lines:
             crateLists[int(infoList[2]) - 1].append(movingObject)
 
 
-
+# Print Results
 for i in range(len(crateLists)):
     print ('Row #' + str(i + 1))
     for j in crateLists[i]:

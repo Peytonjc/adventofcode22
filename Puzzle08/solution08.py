@@ -18,7 +18,10 @@ for line in lines:
         # Inside the forest
         xIndex = 0
         for tree in line:
-            isVisible = True
+            isVisibleLeft = True
+            isVisibleRight = True
+            isVisibleUp = True
+            isVisibleDown = True
             if (xIndex == 0) | (xIndex == len(line) - 1):
                 # First or last tree
                 score += 1
@@ -26,19 +29,21 @@ for line in lines:
                 yCheck = 0
                 for checkLine in lines:
                     checkLine = checkLine.replace('\n', '')
-                    if (int(checkLine[xIndex]) >= int(tree)) & (yCheck != yIndex):
-                        isVisible = False
-                        break
+                    if (int(checkLine[xIndex]) >= int(tree)) & (yCheck < yIndex):
+                        isVisibleUp = False
+                    if (int(checkLine[xIndex]) >= int(tree)) & (yCheck > yIndex):
+                        isVisibleDown = False
                     yCheck += 1
-                if (isVisible):
                     xCheck = 0
                     for checkTree in line:
-                        if (int(checkTree) >= int(tree)) & (xCheck != xIndex):
-                            isVisible = False
-                            break
+                        if (int(checkTree) >= int(tree)) & (xCheck < xIndex):
+                            isVisibleLeft = False
+                        if (int(checkTree) >= int(tree)) & (xCheck > xIndex):
+                            isVisibleRight = False
                         xCheck += 1
-                if (isVisible):
+                if (isVisibleUp | isVisibleDown | isVisibleLeft | isVisibleRight):
                     score += 1
+                    print(score)
             xIndex += 1
     yIndex += 1
 

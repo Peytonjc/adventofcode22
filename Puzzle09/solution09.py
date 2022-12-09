@@ -13,6 +13,10 @@ visitedLocations = [[0, 0]]
 
 # I think we are going to make a state machine...
 
+# Function to return the orientation of H in relation to T
+# NW N NE
+#  W T E
+# SW S SE
 def returnHOrientation(hLocation, tLocation):
     if tLocation == hLocation:
         return 'On'
@@ -33,7 +37,9 @@ def returnHOrientation(hLocation, tLocation):
     elif (tLocation[1] > hLocation[1]) & (tLocation[0] < hLocation[0]):
         return 'SE'
 
-
+# Function to return the Tail location from the location of H and T and a movement.
+# I think the movement results could be changed to just the current position of
+# H (for when it's changed) but, I haven't tested that yet...
 def returnTailLocation(hLocation, tLocation, hMovement):
     hOrientation = returnHOrientation(hLocation, tLocation)
     if hOrientation == 'On':
@@ -106,7 +112,9 @@ def returnTailLocation(hLocation, tLocation, hMovement):
             return [tLocation[0], tLocation[1]]
         elif (hOrientation == 'SE'):
             return [tLocation[0], tLocation[1]]
-        
+
+# The main loop. Iterates through the steps and assigns locations to the locationDict.
+# Also moves H and keeps track of the locations visited by T    
 for line in lines:
     line = line.replace('\n', '')
     instruction = line.split(' ')[0]
@@ -126,5 +134,6 @@ for line in lines:
         if locationDict['T'] not in visitedLocations:
             visitedLocations.append(locationDict['T'])
 
+# Print results
 print(visitedLocations)
 print(len(visitedLocations))

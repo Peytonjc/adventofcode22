@@ -35,23 +35,6 @@ for i in range(height):
             startingNodes.append((i,j))
     heightMap.append(heightLine)
 
-def resetAlgorithmVariables(unvisitedNodes, visitedNodes):
-    unvisitedNodes = []
-    visitedNodes = []
-    for i in range(height):
-        line = lines[i].replace('\n', '')
-        heightLine = []
-        for j in range(width):
-            char = line[j]
-            if char == 'S':
-                startPos = (i, j)
-                char = 'a'
-            elif char == 'E':
-                endPos = (i, j)
-                char = 'z'
-            heightLine.append(ord(char) - ord('a'))
-            unvisitedNodes.append((i, j))
-
 # Build the dictionary to hold the nodes that can be traveled to from a node, taking into account
 # height of adjacent nodes
 for i in range(height):
@@ -90,12 +73,8 @@ class Dijkstra:
             self.visit_node(current_node)
         return self.node_distance[self.end_node]
 
-print("Running for " + str(len(startingNodes)) + " starting nodes...")
-graphTwo = Dijkstra(unvisitedNodes, visitedNodes, startPos, endPos, travelDict)
-shortestPaths.append(graphTwo.run_dijkstras())
+
 
 graph = Dijkstra(unvisitedNodes, visitedNodes, startPos, endPos, travelDict)
 print('Solution for Part 1:')
 print(graph.run_dijkstras())
-print('Solution for Part 2:')
-print(min(shortestPaths))
